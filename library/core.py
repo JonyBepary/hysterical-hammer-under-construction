@@ -1,19 +1,7 @@
-import os
-
 try:
     from css_html_js_minify import process_single_html_file, process_single_js_file, process_single_css_file
 except ModuleNotFoundError:
     print("css_html_js_minify library not installed in this system !!! \nyou can install using 'pip install css-html-js-minify' this command\n\n")
-    exit()
-
-# Function Example
-# ['JEKYLL']['CPU_ARCHITECTURE']
-# config_set('JEKYLL', 'CPU_ARCHITECTURE', '32')
-# config_get('JEKYLL', 'CPU_ARCHITECTURE')
-try:
-    from library.config import config_set, config_get
-except ModuleNotFoundError:
-    print("'config' library Not Found in this system !!! \nYou can check if all files are installed correctly.\n\n")
     exit()
 
 try:
@@ -22,10 +10,10 @@ except ModuleNotFoundError:
     print("'hash_maker' library Not Found in this system !!! \nYou can check if all files are installed correctly.\n\n")
     exit()
 
+import os
 
+overwrite_var = True
 
-overwrite_var = config_get('JEKYLL', 'overwrite')
-print("overwrite: ", overwrite_var)
 
 
 def js_min(file, root):
