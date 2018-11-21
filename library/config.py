@@ -12,11 +12,15 @@ def config_set(Header, Attribute, Value, file=None):
         config.read(file)
         config.set(Header, Attribute, Value)
         return True
+    except KeyError as e:
+        return KeyError
     except TypeError:
         try:
             config.read(path)
             config.set(Header, Attribute, Value)
             return True
+        except KeyError as e:
+            return KeyError
         except FileNotFoundError:
             print("{} This File Not Found\n".format(file))
         return FileNotFoundError
@@ -27,8 +31,11 @@ def config_set(Header, Attribute, Value, file=None):
         with open(file, 'w') as fp:
             config.write(fp)
     except TypeError:
-        with open(path, 'w') as fp:
-            config.write(fp)
+        try:
+            with open(path, 'w') as fp:
+                config.write(fp)
+        except KeyError as e:
+            return KeyError
     except FileNotFoundError:
         print("{} This File Not Found\n".format(file))
         return FileNotFoundError
@@ -45,24 +52,29 @@ def config_get(Header, Attribute, file=None):
         config.read(file)
         print(config[Header][Attribute])
         return config[Header][Attribute]
+    except KeyError as e:
+        return KeyError
     except TypeError:
         try:
             config.read(path)
             print(config[Header][Attribute])
             return config[Header][Attribute]
+        except KeyError as e:
+            return KeyError
         except FileNotFoundError:
             print("{} This File Not Found\n".format(file))
             return FileNotFoundError
     except FileNotFoundError:
         print("{} This File Not Found\n".format(file))
-            return FileNotFoundError
+        return FileNotFoundError
 
     # uncomment for testing
     # cpu = config["JEKYLL"]["CPU_ARCHITECTURE"]
     # file = config['JEKYLL']['FILE_SKIPPING']
     # print("cpu: {}  file: {}".format(cpu, file))
 
+
 # Function Example
 # ['JEKYLL']['CPU_ARCHITECTURE']
 # config_set('JEKYLL', 'CPU_ARCHITECTURE', '32')
-# config_get('JEKYLL', 'CPU_ARCHITECTURE')
+# config_get('JEKYLL', 'cpuarchiecture')

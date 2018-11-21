@@ -59,5 +59,17 @@ def File_Probe(file):
     return main_file_strike(xxhash)
 
 
+def Check_Probe(file):
+
+    # for root, dirs, files in os.walk(os.getcwd()):
+    #     for file in files:
+    #         if root == os.path.join(os.getcwd(), "__pycache__"):
+    #             continue
+    #         # print(os.path.join(os.getcwd(), "__pycache__"))
+    xxhash = hasher(file)
+    # print(file, " : ", xxhash)
+    return main_file_strike(xxhash)
+
+
 
 # File_Probe("/home/jony/hho/assets/css/media.css")

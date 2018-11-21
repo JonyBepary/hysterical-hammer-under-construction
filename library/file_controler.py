@@ -3,7 +3,7 @@ import os
 file_name = "filehash.db"
 
 
-def writer(file, data, place, hash1):
+def writer(file, data, place, hash1=None):
     with open(file, 'w') as f:
         for line in data:
             f.write(line)
@@ -45,12 +45,11 @@ def binsert(data, hash1):
     try:
         if high < 1:
             if data == []:
-                mid = 0
-                return mid
-            elif data[high] < hash1:
+                return data
+            elif data[high] > hash1:
                 mid = 1
                 return mid
-            elif data[high] > hash1:
+            elif data[high] < hash1:
                 mid = 0
                 return mid
             elif data[high] == hash1:
@@ -88,13 +87,47 @@ def main_file_strike(xxhash):
             return -1
 
         mid = binsert(data, xxhash)
+
         if mid == "matched":
             # print("xxhash is already present!!!")
             return "FILE_NOT_MODIFIED"
+        elif mid == []:
+            writer(file, ['\n'], 0, xxhash)
+
         else:
             mid = mid + 1
             data.insert(mid, xxhash)
             writer(file, data, mid, xxhash)
+        # print(type(data))
+        # print(data)
+
+
+def check_strike(xxhash):
+    file = os.path.join(os.getcwd(), file_name)
+    # print("File Opening: {}".format(file))
+    try:
+        with open(file, "r+") as fp:
+            data = fp.readlines()
+
+    except FileNotFoundError:
+        print("{0} File Not Found !!!".format(file))
+        with open(file, "w") as fp:
+            print("File Created.......")
+
+    finally:
+        with open(file, "r+") as fp:
+            data = fp.readlines()
+        try:
+            xxhash = xxhash + "\n"
+        except TypeError:
+            return -1
+
+        mid = binsert(data, xxhash)
+        if mid == "matched":
+            # print("xxhash is already present!!!")
+            return "FILE_NOT_MODIFIED"
+        else:
+            return "FILE_MODIFIED"
         # print(type(data))
         # print(data)
 
