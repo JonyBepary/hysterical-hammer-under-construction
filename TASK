@@ -1,0 +1,6 @@
+add root parameter in png.py, jpeg.py gif.py = done
+add os.chdir(root) in extern = done
+add svg optimization = done
+make all your library stand alone (extern) = ?
+make --no-ruster, --no-vector,--no-vector-ruster, --no-js-css,
+make setup.py

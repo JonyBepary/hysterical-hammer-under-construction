@@ -3,15 +3,18 @@ import configparser
 
 config = configparser.ConfigParser()
 path = os.path.join(os.getcwd(), '_config.ini')
-config.read(path)
+try:
+    config.read(path)
+except Exception as e:
+    raise e
 
-cpu = config['JEKYLL']['CPU_ARCHITECTURE']  # 'secret-key-of-myapp'
-file = config['JEKYLL']['FILE_SKIPPING']
+cpu = config['SITE']['CPU_ARCHITECTURE']  # 'secret-key-of-myapp'
+file = config['SITE']['FILE_SKIPPING']
 
 print("cpu: {}  file: {}".format(cpu, file))
 
-config.set("JEKYLL", "FILE_SKIPPING", "False")
-file = config['JEKYLL']['FILE_SKIPPING']
+config.set("SITE", "FILE_SKIPPING", "False")
+file = config['SITE']['FILE_SKIPPING']
 
 print("cpu: {}  file: {}".format(cpu, file))
 

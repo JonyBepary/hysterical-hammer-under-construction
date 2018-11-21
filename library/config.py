@@ -50,20 +50,21 @@ def config_set(Header, Attribute, Value, file=None):
 def config_get(Header, Attribute, file=None):
     try:
         config.read(file)
-        print(config[Header][Attribute])
+        con_str = config[Header][Attribute]
         return config[Header][Attribute]
     except KeyError as e:
         return KeyError
     except TypeError:
         try:
             config.read(path)
-            print(config[Header][Attribute])
+            con_str = config[Header][Attribute]
             return config[Header][Attribute]
         except KeyError as e:
             return KeyError
         except FileNotFoundError:
             print("{} This File Not Found\n".format(file))
             return FileNotFoundError
+        pass
     except FileNotFoundError:
         print("{} This File Not Found\n".format(file))
         return FileNotFoundError
@@ -76,5 +77,5 @@ def config_get(Header, Attribute, file=None):
 
 # Function Example
 # ['JEKYLL']['CPU_ARCHITECTURE']
-# config_set('JEKYLL', 'CPU_ARCHITECTURE', '32')
-# config_get('JEKYLL', 'cpuarchiecture')
+# print(config_set('SITE', 'CPU_ARCHITECTURE', '32'))
+# print(config_get('SITE', 'CPU_ARCHITECTURE'))
