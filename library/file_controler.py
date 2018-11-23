@@ -1,9 +1,8 @@
 import os
-
 file_name = "filehash.db"
 
 
-def writer(file, data, place, hash1=None):
+def writer(file, data, path=None, hash1=None):
     with open(file, 'w') as f:
         for line in data:
             f.write(line)
@@ -102,7 +101,7 @@ def main_file_strike(xxhash):
         # print(data)
 
 
-def check_strike(xxhash):
+def check_strike(xxhash1, xxhash2=None):
     file = os.path.join(os.getcwd(), file_name)
     # print("File Opening: {}".format(file))
     try:
@@ -118,11 +117,11 @@ def check_strike(xxhash):
         with open(file, "r+") as fp:
             data = fp.readlines()
         try:
-            xxhash = xxhash + "\n"
+            xxhash1 = xxhash1 + "\n"
         except TypeError:
             return -1
 
-        mid = binsert(data, xxhash)
+        mid = binsert(data, xxhash1)
         if mid == "matched":
             # print("xxhash is already present!!!")
             return "FILE_NOT_MODIFIED"

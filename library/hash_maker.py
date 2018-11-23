@@ -8,10 +8,10 @@ except ModuleNotFoundError:
     exit()
 
 try:
-    from library.file_controler import main_file_strike
+    from library.file_controler import main_file_strike, check_strike
 except ModuleNotFoundError:
     try:
-        from file_controler import main_file_strike
+        from file_controler import main_file_strike, check_strike
     except ModuleNotFoundError:
         print("'file_controler' library Not Found in this system !!! \nYou can check if all files are installed correctly.\n\n")
         exit()
@@ -38,37 +38,19 @@ def hasher(file):
         return x
 
 
-
-def hash_saver(hash1):
-    pass
-
-
-def is_hash_equal(hash1, hash2):
-    return hash1 == hash2
-
-
 def File_Probe(file):
-
-    # for root, dirs, files in os.walk(os.getcwd()):
-    #     for file in files:
-    #         if root == os.path.join(os.getcwd(), "__pycache__"):
-    #             continue
-    #         # print(os.path.join(os.getcwd(), "__pycache__"))
     xxhash = hasher(file)
-    # print(file, " : ", xxhash)
+    # print('File_Probe')
+    # print("file_controler cwd: ", os.getcwd())
     return main_file_strike(xxhash)
 
 
 def Check_Probe(file):
-
-    # for root, dirs, files in os.walk(os.getcwd()):
-    #     for file in files:
-    #         if root == os.path.join(os.getcwd(), "__pycache__"):
-    #             continue
-    #         # print(os.path.join(os.getcwd(), "__pycache__"))
+    # print('File_check')
+    # print("file_controler cwd: ", os.getcwd())
     xxhash = hasher(file)
-    # print(file, " : ", xxhash)
-    return main_file_strike(xxhash)
+    # print(file, ':', xxhash)
+    return check_strike(xxhash)
 
 
 
