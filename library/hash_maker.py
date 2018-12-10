@@ -1,3 +1,6 @@
+'''For hashing and other stuf
+File_Probe(file):
+Check_Probe(file):'''
 import os
 import sys
 

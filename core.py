@@ -6,6 +6,7 @@ css_min(), jpeg_min(),
 png_min(), gif_min(),
 svg_min(), autoprefix_min(),
 """
+
 # ----------------------------library----------------------------
 import os
 from itertools import chain
@@ -64,11 +65,6 @@ except ModuleNotFoundError:
     print("'from file_lib import gif' library Not Found in this system !!! \nYou can check if all files are installed correctly.\n\n")
     exit()
 
-try:
-    from file_lib.extern import ext_root_set, ext_root_get
-except ModuleNotFoundError:
-    print("'from file_lib import extern' library Not Found in this system !!! \nYou can check if all files are installed correctly.\n\n")
-    exit()
 
 try:
     from file_lib.svg import svgcleaner
@@ -76,30 +72,41 @@ except ModuleNotFoundError:
     print("'from file_lib import extern' library Not Found in this system !!! \nYou can check if all files are installed correctly.\n\n")
     exit()
 
+# if __name__ == '__main__':
+#     try:
+#         from file_lib.extern import ext_root_set, ext_root_get
+#     except ModuleNotFoundError:
+#         print("'from file_lib import extern' library Not Found in this system !!! \nYou can check if all files are installed correctly.\n\n")
+#         exit()
+
 # ------------------------------end------------------------------
 
-
-root_wd = os.getcwd()
-ext_root_set(root_wd)
+if __name__ == '__main__':
+    root_wd = os.getcwd()
+    # ext_root_set(root_wd)
 
 
 file_config = os.path.join(os.getcwd(), '_config.ini')
 # print(file_config)
-if os.path.isfile(file_config) != True:
-    pass
-else:
-    overwrite_var = config_get('SITE', 'overwrite', file_config)
-    # print(overwrite_var)
+# if os.path.isfile(file_config) != True:
+#     overwrite = True
+# else:
+#     overwrite_var = config_get('SITE', 'overwrite', file_config)
+#     if overwrite_var == KeyError:
+#         raise KeyError
+# print(overwrite_var)
 # exit()
-if overwrite_var == KeyError:
-    raise KeyError
 # print("overwrite: ", overwrite_var)
 
 
 def tartget_dir_func(wd):
-    sub_dir = config_get("SITE", "target_location")
+    print(type(wd))
+    sub_dir = config_get("SITE", "target_location", wd)
+    # print(sub_dir, ":", type(sub_dir))
     tartget_dir = list()
-    if "," in sub_dir:
+    # if "," in sub_dir:
+    if False:
+        pass
         sub_dir = sub_dir.split(', ')
         # print("True: ", type(sub_dir))
         for i, t_dir in enumerate(sub_dir):
@@ -108,7 +115,7 @@ def tartget_dir_func(wd):
         return tartgt_dir
     else:
         tartget_dir.insert(0, os.path.join(wd, sub_dir))
-        # print("tartget_dir:", tartget_dir)
+        print("from core tartget_dir:", tartget_dir)
         return tartget_dir
 
 
@@ -320,21 +327,36 @@ def autoprefix_min(file, root=None):
     pass
 
 
+
+
 '''---maybe this too---'''
 
 
-def controller(cmd=None, main_dir=None):
+def controller(main_dir=None, cmd=None):
+    print('main_dir: ', main_dir, 'type: ', type(main_dir))
     if __name__ == '__main__':
-        t_dir = tartget_dir_func(os.getcwd())
+        if main_dir == None:
+            t_dir = tartget_dir_func(os.getcwd())
+        else:
+            t_dir = tartget_dir_func(main_dir)
+        # '/home/jony/blog/HardCandy-Jekyll-master'
     else:
-        t_dir = main_dir
-    # print('main_dir: ', main_dir)
-    # print(type(tartget_dir))
+        if main_dir == None:
+            t_dir = tartget_dir_func(os.getcwd())
+        else:
+            t_dir = tartget_dir_func(main_dir)
+    print(t_dir, ':', t_dir)
 
+    i = 0
+    return 0
     for root, dirs, files in chain.from_iterable(os.walk(directory) for directory in t_dir):
+        if i == 20:
+            break
         for file in files:
-            # print('root: ', root, 'file: ', file)
+            print('root: ', root, 'file: ', file)
+            i = i + 1
             path = os.path.join(root, file)
+            print('path: ', path)
             status = Check_Probe(path)
             ext_manange(cmd, status, file, path, root)
 
@@ -347,4 +369,4 @@ def controller(cmd=None, main_dir=None):
 
 
 if __name__ == '__main__':
-    controller()
+    controller(os.getcwd())

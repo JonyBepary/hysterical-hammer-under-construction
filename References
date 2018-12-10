@@ -2,7 +2,8 @@ References
 
     ***css-html-js-minify
     xxhash (for FIC)
-    css_html_js_minify (for css ,html ,js)
+    css_html_js_minify (for css ,html)
+    calm_js / css_html_js_minify (for js)
     pillow
     rarfile
     library from piopt (for raster)

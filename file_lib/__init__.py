@@ -1,4 +1,4 @@
-"""FIle Library. & Commmand Proccessor
+"""Moded picopt Library. & Commmand Proccessor
 Module:
 settings  jpeg
 extern    png

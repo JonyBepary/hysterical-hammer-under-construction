@@ -8,8 +8,6 @@ except ModuleNotFoundError:
 
 _SVG_FORMAT = 'SVG'
 FORMATS = set([_SVG_FORMAT])
-OUT_EXT = '.jpg'
-
 _SVGCLEANER_ARGS = ['svgcleaner']
 
 test = False

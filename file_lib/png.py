@@ -1,6 +1,4 @@
 """PNG format."""
-from __future__ import absolute_import, division, print_function
-
 try:
     import extern
 except ModuleNotFoundError:
@@ -43,7 +41,3 @@ def pngout(file, root=None):
     args = _PNGOUT_ARGS + [file]
     extern.run_ext(args, root)
     return _PNG_FORMAT
-
-
-PROGRAMS = (optipng, advpng, pngout)
-BEST_ONLY = False

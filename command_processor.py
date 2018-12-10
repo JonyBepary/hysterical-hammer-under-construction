@@ -7,7 +7,7 @@ import os
 def strike(FILE=None):
     if __name__ == '__main__':
         FILE = core.tartget_dir_func(os.getcwd())
-    return core.controller('all', FILE)
+    return core.controller(None, FILE)
     print('striking\n')
 
 
